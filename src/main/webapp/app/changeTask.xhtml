@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/templates/main.xhtml">
+    <ui:define name="content">
+        <h:form id="new-book-form">
+            <f:metadata>
+                <f:viewParam name="id" value="#{taskBean.id}"/>
+            </f:metadata>
+            <ui:fragment rendered="#{taskBean.created}">
+                <h2>Task changed!</h2>
+            </ui:fragment>
+            <p>
+                <h:outputLabel value="Task ID: "/>
+                #{taskBean.id}
+            </p>
+            <p>
+                <h:outputLabel value="Task header:"/>
+                <h:inputTextarea value="#{taskBean.task.header}"/>
+            </p>
+            <p>
+                <h:outputLabel value="Client's name:"/>
+                <h:inputTextarea value="#{taskBean.task.name}"/>
+            </p>
+            <p>
+                <h:outputLabel value="Client's adress:"/>
+                <h:inputTextarea value="#{taskBean.task.adress}"/>
+            </p>
+            <p>
+                <h:outputLabel value="Date and time:"/>
+                <h:inputText type="date" id="dateInput" value="#{taskBean.task.date}" label="Date">
+                    <f:convertDateTime pattern="dd/mm/yyyy HH:mm"/>
+                </h:inputText>
+                <h:message for="dateInput" style="color:red"/>
+            </p>
+            <p>
+                <h:outputLabel value="Task description:"/>
+                <br/>
+                <h:inputTextarea value="#{taskBean.task.task}"/>
+            </p>
+
+            <h:commandButton action="#{taskBean.changeTask()}"
+                             value="Change">
+                <f:ajax render="@form" execute="@form"/>
+            </h:commandButton>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+</html>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<ui:composition template="/templates/main.xhtml">
+    <ui:define name="content">
+
+        <h:form>
+            <f:metadata>
+                <f:viewParam name="id" value="#{userBean.id}"/>
+                <f:viewAction action="#{managerBean.prepare}"/>
+            </f:metadata>
+
+            <h2>All tasks:</h2>
+            <h:dataTable value="#{taskListBean.tasks}" var="task">
+                <h:column>
+                    <f:facet name="header">Task id:</f:facet>
+                    #{task.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Task header:</f:facet>
+                    #{task.header}
+                </h:column>
+                <h:column>
+                    <h:form>
+                        <f:facet name="header">Open</f:facet>
+                        <h:outputLink value="openTask.xhtml">open
+                        <f:param name="id" value="#{task.id}"/>
+                        </h:outputLink>
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+        <h:form>
+            <h2>Confirmed tasks:</h2>
+            <h:dataTable value="#{managerBean.confirmedResult}"
+                         var="res">
+                <h:column>
+                    <f:facet name="header">Id</f:facet>
+                    #{res.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Task header</f:facet>
+                    #{res.task.header}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Action</f:facet>
+                    <h:commandButton value="Finish" action="#{managerBean.finishTask(res)}">
+                        <f:ajax render="@form" execute="@form"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+        <h:form>
+            <h2>Ended tasks:</h2>
+            <h:dataTable value="#{managerBean.endResult}"
+                         var="res">
+                <h:column>
+                    <f:facet name="header">Id</f:facet>
+                    #{res.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Task</f:facet>
+                    #{res.task.header}
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+
+</html>

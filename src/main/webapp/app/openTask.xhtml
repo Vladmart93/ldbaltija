@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/templates/main.xhtml">
+    <ui:define name="content">
+        <div class="w3-container">
+
+
+        <f:metadata>
+            <f:viewParam name="id" value="#{taskBean.id}"/>
+            <f:viewAction action="#{taskBean.openTask}"/>
+        </f:metadata>
+
+        <h:form>
+            <h:dataTable value="#{taskBean.task}" var="task">
+                <h:column>
+                    <f:facet name="header">Task id:</f:facet>
+                    #{taskBean.task.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Task header:</f:facet>
+                    #{taskBean.task.header}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Client's name:</f:facet>
+                    #{taskBean.task.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Client's adress:</f:facet>
+                    #{taskBean.task.adress}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Date:</f:facet>
+                    #{taskBean.task.date}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Task description:</f:facet>
+                    #{taskBean.task.task}
+                </h:column>
+                <h:column>
+                    <h:form>
+                        <h:commandButton styleClass="w3-button w3-green" value="Activate" action="#{userBean.activate(taskBean.task.id)}"/>
+                    </h:form>
+                </h:column>
+                <h:column>
+                    <h:form>
+                        <f:facet name="header" >Change</f:facet>
+                        <h:outputLink styleClass="w3-button w3-black" value="changeTask.xhtml">Change
+                            <f:param name="id" value="#{taskBean.task.id}"/>
+                        </h:outputLink>
+                    </h:form>
+                </h:column>
+                <h:column>
+                    <h:commandButton styleClass="w3-button w3-red" action="#{taskBean.removeTask(taskBean.task.id)}"
+                                     value="Remove">
+                        <f:ajax render="@form" execute="@form"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+        </div>
+
+    </ui:define>
+</ui:composition>
+</html>
