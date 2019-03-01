@@ -30,9 +30,9 @@
                 <h:inputTextarea value="#{createTaskBean.task.adress}"/>
             </p>
             <p>
-                <h:outputLabel value="Date and time:"/>
+                <h:outputLabel value="Date:"/>
                 <h:inputText type="date" id ="dateInput" value="#{createTaskBean.task.date}" label="Date">
-                    <f:convertDateTime pattern="dd/mm/yyyy HH:mm"/>
+                    <f:convertDateTime pattern="yyyy-mm-dd"/>
                 </h:inputText>
                 <h:message for="dateInput" style="color:red" />
             </p>

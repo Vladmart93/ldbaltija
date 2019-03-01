@@ -1,19 +1,22 @@
 package company.tasks.model;
 
-
-import javax.enterprise.context.SessionScoped;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.*;
 
 @Entity(name = "Task")
 @Table(name = "tasks")
 public class TaskEntity implements Serializable {
 
+    @OneToOne(cascade = CascadeType.ALL,
+            mappedBy = "task", orphanRemoval = true)
+    private ActivationEntity activations;
+
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @NotEmpty(message = "Shouldn't be empty!")
@@ -50,7 +53,9 @@ public class TaskEntity implements Serializable {
         this.name = name;
     }
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -64,6 +69,14 @@ public class TaskEntity implements Serializable {
         this.task = task;
     }
 
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -71,8 +84,4 @@ public class TaskEntity implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
-
-    public String getHeader() { return header; }
-
-    public void setHeader(String header) { this.header = header; }
 }

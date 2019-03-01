@@ -15,9 +15,12 @@ public class ActivationEntity {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToOne
+
+    @OneToOne
+    @MapsId
     private TaskEntity task;
-    @ManyToOne
+
+    @OneToOne
     private UserEntity user;
     @Column
     @Enumerated(EnumType.STRING)

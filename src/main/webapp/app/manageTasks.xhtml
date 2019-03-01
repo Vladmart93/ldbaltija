@@ -64,6 +64,31 @@
             </h:dataTable>
         </h:form>
 
+        <h:form>
+            <h2>Ended status tasks</h2>
+            <h:dataTable value="#{managerBean.endResult}"
+                         var="res">
+                <h:column>
+                    <f:facet name="header">Id</f:facet>
+                    #{res.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Status</f:facet>
+                    #{res.status}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Task</f:facet>
+                    #{res.task.task}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Action</f:facet>
+                    <h:commandButton value="Remove" action="#{managerBean.removeActivation(res.id)}">
+                        <f:ajax render="@form" execute="@form"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
     </ui:define>
 </ui:composition>
 </html>

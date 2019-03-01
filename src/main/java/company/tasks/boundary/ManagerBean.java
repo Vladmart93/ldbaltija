@@ -30,6 +30,7 @@ public class ManagerBean implements Serializable {
     private List<ActivationEntity> finishedResult;
     private List<ActivationEntity> endResult;
 
+
     public void prepare() {
         activeResult = new ArrayList<>();
 
@@ -87,6 +88,13 @@ public class ManagerBean implements Serializable {
     public void endTask(ActivationEntity activations) {
         ActivationEntity a = em.merge(activations);
         a.setStatus(ActivationStatus.END);
+        prepare();
+    }
+
+    @Transactional
+    public void removeActivation(long id) {
+        ActivationEntity activation = em.find(ActivationEntity.class, id);
+        em.remove(activation);
         prepare();
     }
 

@@ -20,27 +20,29 @@
             <h:dataTable value="#{taskBean.task}" var="task">
                 <h:column>
                     <f:facet name="header">Task id:</f:facet>
-                    #{taskBean.task.id}
+                    #{task.id}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Task header:</f:facet>
-                    #{taskBean.task.header}
+                    #{task.header}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Client's name:</f:facet>
-                    #{taskBean.task.name}
+                    #{task.name}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Client's adress:</f:facet>
-                    #{taskBean.task.adress}
+                    #{task.adress}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Date:</f:facet>
-                    #{taskBean.task.date}
+                    <h:outputText value="#{task.date}">
+                    <f:convertDateTime dateStyle="full" pattern="yyyy-mm-dd"/>
+                </h:outputText>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Task description:</f:facet>
-                    #{taskBean.task.task}
+                    #{task.task}
                 </h:column>
                 <h:column>
                     <h:form>
@@ -51,7 +53,7 @@
                     <h:form>
                         <f:facet name="header" >Change</f:facet>
                         <h:outputLink styleClass="w3-button w3-black" value="changeTask.xhtml">Change
-                            <f:param name="id" value="#{taskBean.task.id}"/>
+                            <f:param name="id" value="#{task.id}"/>
                         </h:outputLink>
                     </h:form>
                 </h:column>
@@ -63,9 +65,7 @@
                 </h:column>
             </h:dataTable>
         </h:form>
-
         </div>
-
     </ui:define>
 </ui:composition>
 </html>

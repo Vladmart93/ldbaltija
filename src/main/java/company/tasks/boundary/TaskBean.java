@@ -1,5 +1,6 @@
 package company.tasks.boundary;
 
+import company.tasks.model.ActivationEntity;
 import company.tasks.model.TaskEntity;
 
 import javax.faces.view.ViewScoped;
@@ -16,8 +17,8 @@ public class TaskBean implements Serializable {
     @PersistenceContext
     private EntityManager em;
     private TaskEntity task = new TaskEntity();
+    private ActivationEntity activation = new ActivationEntity();
     private boolean created = false;
-
 
     public void openTask() {
         task = em.find(TaskEntity.class, id);
